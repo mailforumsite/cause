@@ -444,36 +444,46 @@
       </div>
     </div>
   </section>
-  <section id="discussions" class="cta">
-        <div style="margin-top:20px;">
-  <!-- GISCUS -->
-  <script src="https://giscus.app/client.js"
-        data-repo="mailforumsite/cause"
-        data-repo-id="R_kgDOR0ok9Q"
-        data-category="General"
-        data-category-id="DIC_kwDOR0ok9c4C5m4w"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="preferred_color_scheme"
-        data-lang="bg"
-        crossorigin="anonymous"
-        async>
-</script>
-</div>
-    <div class="container">
-      <div class="cta-box">
-        <h2>Искаш да споделиш случай или да зададеш въпрос?</h2>
-        <p>Тук по-късно можем да вържем GitHub Discussions или друга система за обсъждания, така че хората да създават теми и да коментират.</p>
-        <div class="cta-actions">
-          <a class="btn btn-primary" href="#">Създай тема</a> 
-          <a class="btn btn-secondary" href="#help">Потърси помощ</a>
-        </div>
+<section id="discussions" class="cta">
+  <div class="container">
+    <div class="cta-box">
+      <h2>Дискусии</h2>
+      <p>
+        Задай въпрос, сподели случай или участвай в разговорите.
+      </p>
+
+      <div class="cta-actions">
+        <a class="btn btn-primary" href="https://github.com/mailforumsite/cause/discussions/new" target="_blank">
+          Създай тема
+        </a>
+
+        <a class="btn btn-secondary" href="https://github.com/mailforumsite/cause/discussions" target="_blank">
+          Виж всички дискусии
+        </a>
       </div>
+
+      <!-- GISCUS -->
+      <div style="margin-top:30px;">
+        <script src="https://giscus.app/client.js"
+          data-repo="mailforumsite/cause"
+          data-repo-id="R_kgDOR0ok9Q"
+          data-category="General"
+          data-category-id="DIC_kwDOR0ok9c4C5m4w"
+          data-mapping="pathname"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="bottom"
+          data-theme="preferred_color_scheme"
+          data-lang="bg"
+          crossorigin="anonymous"
+          async>
+        </script>
+      </div>
+
     </div>
-  </section>
+  </div>
+</section>
 </main>
 <footer id="help">
   <div class="container">Сайтът е примерна начална версия. Следващите стъпки са: отделни страници, реални линкове, социални профили и интеграция на обсъждания.</div>
