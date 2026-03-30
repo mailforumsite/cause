@@ -1,96 +1,496 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Пострадали</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b2d57" />
+  <title>Пострадали | Силни сме заедно</title>
+  <style>
+    :root {
+      --bg: #eef3f8;
+      --surface: #ffffff;
+      --nav: #0b2d57;
+      --nav-2: #123d74;
+      --text: #18253a;
+      --muted: #5f6f85;
+      --primary: #1f73d8;
+      --primary-hover: #165fba;
+      --border: #d8e1ec;
+      --shadow: 0 10px 30px rgba(8, 28, 54, 0.08);
+      --radius: 18px;
+      --max: 1180px;
+    }
 
-<style>
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background: #f5f7fa;
-}
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
-.container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 20px;
-}
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
 
-h1 {
-    text-align: center;
-}
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-}
+    .container {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+    }
 
-.video-card {
-    background: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-}
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: linear-gradient(180deg, var(--nav) 0%, var(--nav-2) 100%);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+    }
 
-.video-card iframe {
-    width: 100%;
-    height: 200px;
-    border: none;
-}
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 82px;
+      padding: 10px 0;
+      position: relative;
+    }
 
-.video-info {
-    padding: 10px;
-}
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      flex: 0 1 auto;
+    }
 
-.video-info h3 {
-    margin: 0;
-    font-size: 16px;
-}
+    .logo-img {
+      width: 84px;
+      height: 84px;
+      object-fit: contain;
+      flex: 0 0 auto;
+    }
 
-.video-info p {
-    font-size: 14px;
-    color: #555;
-}
-</style>
+    .menu-toggle {
+      border: 1px solid rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      font-size: 22px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+    }
+
+    .menu {
+      display: none;
+      width: 100%;
+      padding: 0 0 18px;
+    }
+
+    .menu.open { display: block; }
+
+    .menu-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 18px;
+      padding: 14px;
+    }
+
+    .menu-links a {
+      color: #fff;
+      font-weight: 700;
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 18px;
+    }
+
+    .menu-links a:hover,
+    .menu-links a.active {
+      background: rgba(255,255,255,0.12);
+    }
+
+    .socials {
+      display: flex;
+      gap: 10px;
+      margin-top: 6px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,0.14);
+    }
+
+    .socials a {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .hero {
+      padding: 34px 0 18px;
+    }
+
+    .hero-card {
+      background: linear-gradient(135deg, #ffffff 0%, #f4f8fc 100%);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 28px 20px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--primary);
+      background: rgba(31, 115, 216, 0.08);
+      padding: 8px 12px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(30px, 6vw, 56px);
+      line-height: 1.07;
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 760px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .btn {
+      min-height: 52px;
+      padding: 14px 18px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      border: 1px solid transparent;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 10px 20px rgba(31, 115, 216, 0.22);
+    }
+
+    .btn-primary:hover { background: var(--primary-hover); }
+
+    .btn-secondary {
+      background: #fff;
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover { background: #f7faff; }
+
+    .section {
+      padding: 18px 0 34px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 4vw, 40px);
+      margin: 0 0 10px;
+    }
+
+    .section-intro {
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-size: 17px;
+      max-width: 820px;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .video-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .video-frame {
+      aspect-ratio: 16 / 9;
+      background: #dfe7f0;
+    }
+
+    .video-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .video-content {
+      padding: 18px;
+    }
+
+    .video-content h3 {
+      margin: 0 0 8px;
+      font-size: 22px;
+      line-height: 1.2;
+    }
+
+    .video-content p {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .video-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .ghost-box {
+      background: var(--surface);
+      border: 1px dashed #b8c6d8;
+      border-radius: 24px;
+      padding: 22px;
+      color: var(--muted);
+      box-shadow: var(--shadow);
+    }
+
+    .ghost-box strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text);
+      font-size: 18px;
+    }
+
+    footer {
+      padding: 20px 0 38px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (min-width: 700px) {
+      .hero-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .video-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 980px) {
+      .nav {
+        min-height: 92px;
+      }
+
+      .menu-toggle {
+        display: none;
+      }
+
+      .menu {
+        display: block !important;
+        width: auto;
+        padding: 0;
+        flex: 1 1 auto;
+      }
+
+      .menu-links {
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 4px;
+        padding: 0;
+        background: transparent;
+        border: 0;
+      }
+
+      .menu-links a {
+        padding: 10px 12px;
+        white-space: nowrap;
+      }
+
+      .socials {
+        margin: 0 0 0 10px;
+        padding: 0 0 0 10px;
+        border-top: 0;
+        border-left: 1px solid rgba(255,255,255,0.16);
+      }
+
+      .hero-card {
+        padding: 42px;
+      }
+
+      .video-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <header class="topbar">
+    <div class="container">
+      <div class="nav">
+        <a class="brand" href="index.html">
+          <img src="images/logo.png" alt="Силни сме заедно" class="logo-img">
+        </a>
 
-<div class="container">
+        <button id="menuToggle" class="menu-toggle" aria-label="Отвори меню">☰</button>
 
-<h1>Истории на пострадали</h1>
-<p style="text-align:center;">
-Реални случаи на хора, пострадали от фалшиво положителни тестове.
-</p>
+        <nav id="menu" class="menu">
+          <div class="menu-links">
+            <a href="index.html">Начало</a>
+            <a href="http://cause.page.gd/phpBB3/index.php">Форум</a>
+            <a href="postradali.html" class="active">Пострадали</a>
+            <a href="index.html#help">Контакт</a>
 
-<div class="grid">
+            <div class="socials">
+              <a href="#" aria-label="Facebook">f</a>
+              <a href="#" aria-label="YouTube">▶</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </header>
 
-<!-- ВИДЕО 1 -->
-<div class="video-card">
-<iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
-<div class="video-info">
-<h3>Име / Заглавие</h3>
-<p>Кратко описание</p>
-</div>
-</div>
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card">
+          <div class="eyebrow">Реални случаи и видео истории</div>
+          <h1>Пострадали</h1>
+          <p>
+            Тук ще публикуваш всички видеа с разкази, интервюта и медийни участия,
+            свързани с хора, засегнати от фалшиво положителни тестове.
+          </p>
 
-<!-- ВИДЕО 2 -->
-<div class="video-card">
-<iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
-<div class="video-info">
-<h3>Име / Заглавие</h3>
-<p>Кратко описание</p>
-</div>
-</div>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#videos">Виж видеата</a>
+            <a class="btn btn-secondary" href="index.html#help">Изпрати история</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<!-- добавяш колкото искаш -->
+    <section id="videos" class="section">
+      <div class="container">
+        <h2 class="section-title">Видео истории</h2>
+        <p class="section-intro">
+          Оставени са готови места за видеа. Само сменяш YouTube линка и заглавието.
+        </p>
 
-</div>
+        <div class="video-grid">
+          <article class="video-card">
+            <div class="video-frame">
+              <iframe src="https://www.youtube.com/embed/VIDEO_ID_1" title="Видео 1" allowfullscreen></iframe>
+            </div>
+            <div class="video-content">
+              <h3>Заглавие на видео 1</h3>
+              <p>Кратко описание на случая или на интервюто.</p>
+              <div class="video-actions">
+                <a class="btn btn-secondary" href="https://www.youtube.com/watch?v=VIDEO_ID_1" target="_blank" rel="noopener noreferrer">Отвори в YouTube</a>
+              </div>
+            </div>
+          </article>
 
-</div>
+          <article class="video-card">
+            <div class="video-frame">
+              <iframe src="https://www.youtube.com/embed/VIDEO_ID_2" title="Видео 2" allowfullscreen></iframe>
+            </div>
+            <div class="video-content">
+              <h3>Заглавие на видео 2</h3>
+              <p>Кратко описание на случая или на интервюто.</p>
+              <div class="video-actions">
+                <a class="btn btn-secondary" href="https://www.youtube.com/watch?v=VIDEO_ID_2" target="_blank" rel="noopener noreferrer">Отвори в YouTube</a>
+              </div>
+            </div>
+          </article>
 
+          <article class="video-card">
+            <div class="video-frame">
+              <iframe src="https://www.youtube.com/embed/VIDEO_ID_3" title="Видео 3" allowfullscreen></iframe>
+            </div>
+            <div class="video-content">
+              <h3>Заглавие на видео 3</h3>
+              <p>Кратко описание на случая или на интервюто.</p>
+              <div class="video-actions">
+                <a class="btn btn-secondary" href="https://www.youtube.com/watch?v=VIDEO_ID_3" target="_blank" rel="noopener noreferrer">Отвори в YouTube</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="ghost-box">
+            <strong>Как да добавиш ново видео</strong>
+            Копирай някой от готовите <code>video-card</code> блокове и смени:
+            <br><br>
+            1. <code>VIDEO_ID_1</code> с реалния YouTube ID<br>
+            2. Заглавието<br>
+            3. Описанието<br>
+            4. Линка в бутона
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      Силни сме заедно
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('menuToggle');
+    const menu = document.getElementById('menu');
+    const links = menu.querySelectorAll('a');
+
+    toggle.addEventListener('click', () => {
+      menu.classList.toggle('open');
+      toggle.textContent = menu.classList.contains('open') ? '✕' : '☰';
+    });
+
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth < 980) {
+          menu.classList.remove('open');
+          toggle.textContent = '☰';
+        }
+      });
+    });
+  </script>
 </body>
 </html>
