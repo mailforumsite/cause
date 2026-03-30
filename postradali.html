@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Пострадали</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f5f7fa;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.video-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.video-card iframe {
+    width: 100%;
+    height: 200px;
+    border: none;
+}
+
+.video-info {
+    padding: 10px;
+}
+
+.video-info h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.video-info p {
+    font-size: 14px;
+    color: #555;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Истории на пострадали</h1>
+<p style="text-align:center;">
+Реални случаи на хора, пострадали от фалшиво положителни тестове.
+</p>
+
+<div class="grid">
+
+<!-- ВИДЕО 1 -->
+<div class="video-card">
+<iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
+<div class="video-info">
+<h3>Име / Заглавие</h3>
+<p>Кратко описание</p>
+</div>
+</div>
+
+<!-- ВИДЕО 2 -->
+<div class="video-card">
+<iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
+<div class="video-info">
+<h3>Име / Заглавие</h3>
+<p>Кратко описание</p>
+</div>
+</div>
+
+<!-- добавяш колкото искаш -->
+
+</div>
+
+</div>
+
+</body>
+</html>
