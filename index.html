@@ -27,6 +27,11 @@
       width: min(100% - 32px, var(--max));
       margin: 0 auto;
     }
+    .logo-img {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+}  
     .topbar {
       position: sticky;
       top: 0;
@@ -326,7 +331,7 @@
 <header class="topbar">
   <div class="container">
     <div class="nav">
-      <div class="logo">⚖️</div>
+      <img src="images/logo.png" alt="logo" class="logo-img">
       <div class="brand-text">Силни сме заедно</div>
       <button id="menuToggle" class="menu-toggle" aria-label="Отвори меню">☰</button>
     </div>
