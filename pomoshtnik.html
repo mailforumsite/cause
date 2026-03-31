@@ -8,11 +8,13 @@
 <style>
 :root {
   --bg:#eef3f8;
-  --card:#ffffff;
+  --surface:#ffffff;
+  --nav:#0b2d57;
+  --nav-2:#123d74;
+  --text:#18253a;
+  --muted:#5f6f85;
   --primary:#1f73d8;
   --primary-hover:#165fba;
-  --text:#1b2a40;
-  --muted:#5f6f85;
   --border:#d8e1ec;
 }
 
@@ -24,12 +26,94 @@ body {
 }
 
 .container {
-  max-width:900px;
+  width:min(100% - 32px, 1100px);
   margin:0 auto;
-  padding:30px 16px;
 }
 
-h1 {
+/* HEADER */
+.topbar {
+  position: sticky;
+  top:0;
+  z-index:1000;
+  background: linear-gradient(180deg, var(--nav), var(--nav-2));
+}
+
+.nav {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  min-height:80px;
+}
+
+.logo-img {
+  width:70px;
+}
+
+.menu-toggle {
+  background:none;
+  border:none;
+  color:#fff;
+  font-size:24px;
+  display:block;
+}
+
+.menu {
+  display:none;
+}
+
+.menu.open {
+  display:block;
+}
+
+.menu-links {
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  background:rgba(255,255,255,0.1);
+  padding:15px;
+  border-radius:12px;
+}
+
+.menu-links a {
+  color:#fff;
+  font-weight:700;
+}
+
+.socials {
+  display:flex;
+  gap:10px;
+  margin-top:10px;
+}
+
+.socials a {
+  background:rgba(255,255,255,0.2);
+  padding:8px 12px;
+  border-radius:8px;
+  color:#fff;
+}
+
+/* DESKTOP */
+@media(min-width:900px){
+  .menu {
+    display:block !important;
+  }
+
+  .menu-toggle {
+    display:none;
+  }
+
+  .menu-links {
+    flex-direction:row;
+    background:none;
+  }
+}
+
+/* CONTENT */
+.main {
+  padding:50px 0;
+}
+
+.title {
   text-align:center;
   font-size:36px;
   margin-bottom:10px;
@@ -39,35 +123,23 @@ h1 {
   text-align:center;
   color:var(--muted);
   margin-bottom:40px;
-  font-size:18px;
 }
 
 .box {
-  background:var(--card);
+  background:var(--surface);
   border:1px solid var(--border);
   border-radius:20px;
   padding:30px;
   margin-bottom:20px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.05);
-}
-
-.box h2 {
-  margin-top:0;
-  font-size:22px;
-}
-
-.box p {
-  color:var(--muted);
-  margin-bottom:20px;
+  text-align:center;
 }
 
 .btn {
   display:inline-block;
-  padding:14px 20px;
+  padding:14px 22px;
   border-radius:12px;
   font-weight:800;
   text-decoration:none;
-  text-align:center;
 }
 
 .btn-primary {
@@ -75,55 +147,76 @@ h1 {
   color:#fff;
 }
 
-.btn-primary:hover {
-  background:var(--primary-hover);
-}
-
 .btn-secondary {
   background:#fff;
   border:1px solid var(--border);
   color:var(--text);
-}
-
-.note {
-  text-align:center;
-  margin-top:30px;
-  color:var(--muted);
-  font-size:14px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<header class="topbar">
+  <div class="container">
+    <div class="nav">
+      <a href="index.html">
+        <img src="images/logo.png" class="logo-img">
+      </a>
 
-  <h1>📱 Мобилен помощник</h1>
+      <button id="menuToggle" class="menu-toggle">☰</button>
+
+      <nav id="menu" class="menu">
+        <div class="menu-links">
+          <a href="index.html">Начало</a>
+          <a href="postradali.html">Пострадали</a>
+          <a href="http://cause.page.gd/phpBB3/index.php">Форум</a>
+          <a href="contact.html">Пиши ни</a>
+
+          <div class="socials">
+            <a href="https://www.facebook.com/groups/972347794868457">f</a>
+            <a href="https://www.youtube.com/@silnismezaedno">▶</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<div class="main container">
+
+  <h1 class="title">📱 Мобилен помощник</h1>
   <div class="subtitle">
-    Бърз достъп до действия и информация при проверка от КАТ
+    Бърз достъп до действия при проверка от КАТ
   </div>
 
   <div class="box">
-    <h2>⚡ Отвори веднага (без инсталация)</h2>
-    <p>Работи директно в браузъра на телефона. Най-лесният вариант.</p>
+    <h2>⚡ Отвори веднага</h2>
+    <p>Без инсталация – работи директно в браузъра</p>
     <a href="https://mailforumsite.github.io/stoptest" class="btn btn-primary">
       Отвори онлайн
     </a>
   </div>
 
   <div class="box">
-    <h2>📥 Инсталирай като приложение (Android)</h2>
-    <p>Свали APK и го инсталирай на телефона си.</p>
+    <h2>📥 APK за Android</h2>
+    <p>Инсталирай като приложение</p>
     <a href="APK_LINK_TUK" class="btn btn-secondary">
       Изтегли APK
     </a>
   </div>
 
-  <div class="note">
-    Препоръчваме използване на онлайн версията за най-бърз достъп.
-  </div>
-
 </div>
+
+<script>
+const toggle = document.getElementById('menuToggle');
+const menu = document.getElementById('menu');
+
+toggle.addEventListener('click', () => {
+  menu.classList.toggle('open');
+  toggle.textContent = menu.classList.contains('open') ? '✕' : '☰';
+});
+</script>
 
 </body>
 </html>
