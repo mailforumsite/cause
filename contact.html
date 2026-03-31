@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b2d57" />
+  <title>Контакт | Силни сме заедно</title>
+  <style>
+    :root {
+      --bg: #eef3f8;
+      --surface: #ffffff;
+      --nav: #0b2d57;
+      --nav-2: #123d74;
+      --text: #18253a;
+      --muted: #5f6f85;
+      --primary: #1f73d8;
+      --primary-hover: #165fba;
+      --border: #d8e1ec;
+      --shadow: 0 10px 30px rgba(8, 28, 54, 0.08);
+      --radius: 18px;
+      --max: 1180px;
+      --success: #1d8f4d;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: linear-gradient(180deg, var(--nav) 0%, var(--nav-2) 100%);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 82px;
+      padding: 10px 0;
+      position: relative;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      flex: 0 1 auto;
+    }
+
+    .logo-img {
+      width: 84px;
+      height: 84px;
+      object-fit: contain;
+      flex: 0 0 auto;
+    }
+
+    .menu-toggle {
+      border: 1px solid rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      font-size: 22px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+    }
+
+    .menu {
+      display: none;
+      width: 100%;
+      padding: 0 0 18px;
+    }
+
+    .menu.open { display: block; }
+
+    .menu-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 18px;
+      padding: 14px;
+    }
+
+    .menu-links a {
+      color: #fff;
+      font-weight: 700;
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 18px;
+    }
+
+    .menu-links a:hover,
+    .menu-links a.active {
+      background: rgba(255,255,255,0.10);
+    }
+
+    .socials {
+      display: flex;
+      gap: 10px;
+      margin-top: 6px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,0.14);
+    }
+
+    .socials a {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .hero {
+      padding: 34px 0 18px;
+    }
+
+    .hero-card {
+      background: linear-gradient(135deg, #ffffff 0%, #f4f8fc 100%);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 28px 20px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--primary);
+      background: rgba(31, 115, 216, 0.08);
+      padding: 8px 12px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(30px, 6vw, 56px);
+      line-height: 1.07;
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 760px;
+    }
+
+    .section {
+      padding: 18px 0 42px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 24px 20px;
+    }
+
+    .card h2,
+    .card h3 {
+      margin: 0 0 14px;
+      line-height: 1.15;
+    }
+
+    .card h2 {
+      font-size: 30px;
+    }
+
+    .card h3 {
+      font-size: 24px;
+    }
+
+    .card p {
+      margin: 0 0 14px;
+      color: var(--muted);
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .contact-item {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      background: #f9fbfe;
+    }
+
+    .contact-item strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 17px;
+    }
+
+    .contact-item a {
+      color: var(--primary);
+      font-weight: 700;
+      word-break: break-word;
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    label {
+      display: grid;
+      gap: 8px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 15px;
+      font: inherit;
+      color: var(--text);
+      background: #fff;
+      outline: none;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(31, 115, 216, 0.10);
+    }
+
+    textarea {
+      min-height: 180px;
+      resize: vertical;
+    }
+
+    .btn {
+      min-height: 52px;
+      padding: 14px 18px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      border: 1px solid transparent;
+      transition: 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 10px 20px rgba(31, 115, 216, 0.22);
+    }
+
+    .btn-primary:hover { background: var(--primary-hover); }
+
+    .note {
+      margin-top: 12px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .success-box {
+      display: none;
+      margin-top: 16px;
+      border: 1px solid rgba(29, 143, 77, 0.25);
+      background: rgba(29, 143, 77, 0.08);
+      color: var(--success);
+      border-radius: 14px;
+      padding: 14px 16px;
+      font-weight: 700;
+    }
+
+    footer {
+      padding: 10px 0 38px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (min-width: 980px) {
+      .nav {
+        min-height: 92px;
+      }
+
+      .menu-toggle {
+        display: none;
+      }
+
+      .menu {
+        display: block !important;
+        width: auto;
+        padding: 0;
+        flex: 1 1 auto;
+      }
+
+      .menu-links {
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 4px;
+        padding: 0;
+        background: transparent;
+        border: 0;
+      }
+
+      .menu-links a {
+        padding: 10px 12px;
+        white-space: nowrap;
+      }
+
+      .socials {
+        margin: 0 0 0 10px;
+        padding: 0 0 0 10px;
+        border-top: 0;
+        border-left: 1px solid rgba(255,255,255,0.16);
+      }
+
+      .hero-card {
+        padding: 42px;
+      }
+
+      .contact-grid {
+        grid-template-columns: 0.95fr 1.2fr;
+        align-items: start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="nav">
+        <a class="brand" href="index.html">
+          <img src="images/logo.png" alt="Силни сме заедно" class="logo-img">
+        </a>
+
+        <button id="menuToggle" class="menu-toggle" aria-label="Отвори меню">☰</button>
+
+        <nav id="menu" class="menu">
+          <div class="menu-links">
+            <a href="index.html">Начало</a>
+            <a href="postradali.html">Пострадали</a>
+            <a href="http://cause.page.gd/phpBB3/index.php">Форум</a>
+            <a href="contact.html" class="active">Контакт</a>
+
+            <div class="socials">
+              <a href="https://www.facebook.com/groups/972347794868457" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a>
+              <a href="https://www.youtube.com/@silnismezaedno" target="_blank" rel="noopener noreferrer" aria-label="YouTube">▶</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card">
+          <div class="eyebrow">Контакт</div>
+          <h1>Свържи се с нас</h1>
+          <p>
+            Ако искаш да разкажеш случай, да изпратиш въпрос или да подадеш информация,
+            използвай формата по-долу или ни пиши директно.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="contact-grid">
+          <article class="card">
+            <h2>Начини за връзка</h2>
+            <p>Избери най-удобния за теб начин. Можеш да пишеш и анонимно, ако не искаш да оставяш телефон.</p>
+
+            <div class="contact-list">
+              <div class="contact-item">
+                <strong>Имейл</strong>
+                <a href="mailto:silnismezaedno@gmail.com">silnismezaedno@gmail.com</a>
+              </div>
+
+              <div class="contact-item">
+                <strong>Facebook група</strong>
+                <a href="https://www.facebook.com/groups/972347794868457" target="_blank" rel="noopener noreferrer">Отвори групата</a>
+              </div>
+
+              <div class="contact-item">
+                <strong>YouTube канал</strong>
+                <a href="https://www.youtube.com/@silnismezaedno" target="_blank" rel="noopener noreferrer">@silnismezaedno</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>Изпрати съобщение</h3>
+            <p>Формата изпраща съобщението директно към имейла на сайта.</p>
+
+            <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+              <input type="hidden" name="access_key" value="aea944d8-cb48-411e-a9c4-4db88fc22954">
+              <input type="hidden" name="subject" value="Ново съобщение от contact.html">
+              <input type="hidden" name="from_name" value="Силни сме заедно - контактна форма">
+              <input type="checkbox" name="botcheck" style="display:none;">
+
+              <label>
+                Име
+                <input type="text" name="name" placeholder="Твоето име" required>
+              </label>
+
+              <label>
+                Имейл
+                <input type="email" name="email" placeholder="example@email.com" required>
+              </label>
+
+              <label>
+                Тема
+                <input type="text" name="message_subject" placeholder="Например: Фалшиво положителен тест" required>
+              </label>
+
+              <label>
+                Съобщение
+                <textarea name="message" placeholder="Опиши случая или въпроса си" required></textarea>
+              </label>
+
+              <button type="submit" class="btn btn-primary">Изпрати</button>
+            </form>
+
+            <div id="successMessage" class="success-box">Съобщението беше изпратено успешно.</div>
+            <div class="note">Ако предпочиташ, можеш да пишеш и директно на имейла, без да ползваш формата.</div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© Силни сме заедно</div>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('menuToggle');
+    const menu = document.getElementById('menu');
+    const links = menu.querySelectorAll('a');
+
+    toggle.addEventListener('click', () => {
+      menu.classList.toggle('open');
+      toggle.textContent = menu.classList.contains('open') ? '✕' : '☰';
+    });
+
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth < 980) {
+          menu.classList.remove('open');
+          toggle.textContent = '☰';
+        }
+      });
+    });
+
+    const form = document.getElementById('contactForm');
+    const successMessage = document.getElementById('successMessage');
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: formData
+        });
+
+        if (response.ok) {
+          form.reset();
+          successMessage.style.display = 'block';
+          successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } else {
+          alert('Имаше проблем при изпращането. Опитай отново.');
+        }
+      } catch (error) {
+        alert('Имаше проблем при изпращането. Провери връзката и опитай пак.');
+      }
+    });
+  </script>
+</body>
+</html>
