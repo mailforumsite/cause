@@ -1,222 +1,445 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Мобилен помощник</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b2d57" />
+  <title>Мобилен помощник</title>
+  <style>
+    :root {
+      --bg: #eef3f8;
+      --surface: #ffffff;
+      --nav: #0b2d57;
+      --nav-2: #123d74;
+      --text: #18253a;
+      --muted: #5f6f85;
+      --primary: #1f73d8;
+      --primary-hover: #165fba;
+      --border: #d8e1ec;
+      --shadow: 0 10px 30px rgba(8, 28, 54, 0.08);
+      --radius: 18px;
+      --max: 1180px;
+    }
 
-<style>
-:root {
-  --bg:#eef3f8;
-  --surface:#ffffff;
-  --nav:#0b2d57;
-  --nav-2:#123d74;
-  --text:#18253a;
-  --muted:#5f6f85;
-  --primary:#1f73d8;
-  --primary-hover:#165fba;
-  --border:#d8e1ec;
-}
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
-body {
-  margin:0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-  background:var(--bg);
-  color:var(--text);
-}
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
 
-.container {
-  width:min(100% - 32px, 1100px);
-  margin:0 auto;
-}
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
 
-/* HEADER */
-.topbar {
-  position: sticky;
-  top:0;
-  z-index:1000;
-  background: linear-gradient(180deg, var(--nav), var(--nav-2));
-}
+    .container {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+    }
 
-.nav {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  min-height:80px;
-}
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: linear-gradient(180deg, var(--nav) 0%, var(--nav-2) 100%);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+    }
 
-.logo-img {
-  width:70px;
-}
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 82px;
+      padding: 10px 0;
+      position: relative;
+    }
 
-.menu-toggle {
-  background:none;
-  border:none;
-  color:#fff;
-  font-size:24px;
-  display:block;
-}
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      flex: 0 1 auto;
+    }
 
-.menu {
-  display:none;
-}
+    .logo-img {
+      width: 84px;
+      height: 84px;
+      object-fit: contain;
+      flex: 0 0 auto;
+    }
 
-.menu.open {
-  display:block;
-}
+    .brand-text {
+      color: #fff;
+      font-weight: 800;
+      font-size: 22px;
+      line-height: 1.1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
-.menu-links {
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  background:rgba(255,255,255,0.1);
-  padding:15px;
-  border-radius:12px;
-}
+    .menu-toggle {
+      border: 1px solid rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      font-size: 22px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+    }
 
-.menu-links a {
-  color:#fff;
-  font-weight:700;
-}
+    .menu {
+      display: none;
+      width: 100%;
+      padding: 0 0 18px;
+    }
 
-.socials {
-  display:flex;
-  gap:10px;
-  margin-top:10px;
-}
+    .menu.open { display: block; }
 
-.socials a {
-  background:rgba(255,255,255,0.2);
-  padding:8px 12px;
-  border-radius:8px;
-  color:#fff;
-}
+    .menu-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 18px;
+      padding: 14px;
+    }
 
-/* DESKTOP */
-@media(min-width:900px){
-  .menu {
-    display:block !important;
-  }
+    .menu-links a {
+      color: #fff;
+      font-weight: 700;
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 18px;
+    }
 
-  .menu-toggle {
-    display:none;
-  }
+    .menu-links a:hover {
+      background: rgba(255,255,255,0.09);
+    }
 
-  .menu-links {
-    flex-direction:row;
-    background:none;
-  }
-}
+    .socials {
+      display: flex;
+      gap: 10px;
+      margin-top: 6px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,0.14);
+    }
 
-/* CONTENT */
-.main {
-  padding:50px 0;
-}
+    .socials a {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 700;
+    }
 
-.title {
-  text-align:center;
-  font-size:36px;
-  margin-bottom:10px;
-}
+    .helper-hero {
+      padding: 56px 0 24px;
+    }
 
-.subtitle {
-  text-align:center;
-  color:var(--muted);
-  margin-bottom:40px;
-}
+    .helper-card {
+      max-width: 980px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, #ffffff 0%, #f3f7fc 100%);
+      border: 1px solid #d8e1ec;
+      border-radius: 28px;
+      box-shadow: 0 18px 50px rgba(8, 28, 54, 0.10);
+      padding: 50px 32px;
+    }
 
-.box {
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:30px;
-  margin-bottom:20px;
-  text-align:center;
-}
+    .eyebrow {
+      display:inline-block;
+      padding:8px 14px;
+      border-radius:999px;
+      background: rgba(31, 115, 216, 0.08);
+      color:#1f73d8;
+      font-size:13px;
+      font-weight:800;
+      letter-spacing:0.05em;
+      text-transform:uppercase;
+      margin-bottom:18px;
+    }
 
-.btn {
-  display:inline-block;
-  padding:14px 22px;
-  border-radius:12px;
-  font-weight:800;
-  text-decoration:none;
-}
+    h1 {
+      margin: 0 0 16px;
+      font-size: clamp(34px, 6vw, 58px);
+      line-height: 1.05;
+      text-align: center;
+      color: #0f2547;
+    }
 
-.btn-primary {
-  background:var(--primary);
-  color:#fff;
-}
+    .lead {
+      margin: 0 auto 34px;
+      max-width: 760px;
+      font-size: 22px;
+      line-height: 1.65;
+      text-align: center;
+      color: #24364f;
+      font-weight: 500;
+    }
 
-.btn-secondary {
-  background:#fff;
-  border:1px solid var(--border);
-  color:var(--text);
-}
-</style>
+    .helper-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-top: 32px;
+    }
+
+    .helper-box {
+      background: #fff;
+      border: 1px solid #d8e1ec;
+      border-radius: 22px;
+      padding: 28px 24px;
+      box-shadow: 0 10px 24px rgba(8, 28, 54, 0.06);
+      text-align: center;
+    }
+
+    .helper-box h2 {
+      margin: 0 0 10px;
+      font-size: 28px;
+      line-height: 1.2;
+      color: #0f2547;
+    }
+
+    .helper-box p {
+      margin: 0 0 22px;
+      font-size: 18px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .btn-row {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn {
+      min-height: 54px;
+      padding: 14px 22px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 17px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      border: 1px solid transparent;
+      transition: 0.2s ease;
+      min-width: 220px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 10px 20px rgba(31, 115, 216, 0.22);
+    }
+
+    .btn-primary:hover { background: var(--primary-hover); }
+
+    .btn-secondary {
+      background: #fff;
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover { background: #f7faff; }
+
+    .helper-note {
+      margin-top: 34px;
+      padding: 22px 20px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #0b2d57 0%, #123d74 100%);
+      color: #fff;
+      box-shadow: 0 16px 36px rgba(11, 45, 87, 0.22);
+      text-align: center;
+    }
+
+    .helper-note p {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.7;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    footer {
+      padding: 20px 0 38px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (min-width: 700px) {
+      .helper-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .btn-row {
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+    }
+
+    @media (min-width: 980px) {
+      .nav {
+        min-height: 92px;
+      }
+
+      .menu-toggle {
+        display: none;
+      }
+
+      .menu {
+        display: block !important;
+        width: auto;
+        padding: 0;
+        flex: 1 1 auto;
+      }
+
+      .menu-links {
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 4px;
+        padding: 0;
+        background: transparent;
+        border: 0;
+      }
+
+      .menu-links a {
+        padding: 10px 12px;
+        white-space: nowrap;
+      }
+
+      .socials {
+        margin: 0 0 0 10px;
+        padding: 0 0 0 10px;
+        border-top: 0;
+        border-left: 1px solid rgba(255,255,255,0.16);
+      }
+
+      .helper-card {
+        padding: 56px 42px;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <header class="topbar">
+    <div class="container">
+      <div class="nav">
+        <a class="brand" href="https://mailforumsite.github.io/cause/">
+          <img src="images/logo.png" alt="Силни сме заедно" class="logo-img">
+        </a>
 
-<header class="topbar">
-  <div class="container">
-    <div class="nav">
-      <a href="index.html">
-        <img src="images/logo.png" class="logo-img">
-      </a>
+        <button id="menuToggle" class="menu-toggle" aria-label="Отвори меню">☰</button>
 
-      <button id="menuToggle" class="menu-toggle">☰</button>
+        <nav id="menu" class="menu">
+          <div class="menu-links">
+            <a href="https://mailforumsite.github.io/cause/">Начало</a>
+            <a href="postradali.html">Пострадали</a>
+            <a href="http://cause.page.gd/phpBB3/index.php">Форум</a>
+            <a href="contact.html">Пиши ни</a>
 
-      <nav id="menu" class="menu">
-        <div class="menu-links">
-          <a href="index.html">Начало</a>
-          <a href="postradali.html">Пострадали</a>
-          <a href="http://cause.page.gd/phpBB3/index.php">Форум</a>
-          <a href="contact.html">Пиши ни</a>
+            <div class="socials">
+              <a href="https://www.facebook.com/groups/972347794868457" aria-label="Facebook">f</a>
+              <a href="https://www.youtube.com/@silnismezaedno" aria-label="YouTube">▶</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </header>
 
-          <div class="socials">
-            <a href="https://www.facebook.com/groups/972347794868457">f</a>
-            <a href="https://www.youtube.com/@silnismezaedno">▶</a>
+  <main>
+    <section class="helper-hero">
+      <div class="container">
+        <div class="helper-card">
+          <div class="eyebrow">Бърз достъп от телефон</div>
+
+          <h1>Мобилен помощник</h1>
+
+          <p class="lead">
+            Избери как да използваш помощника — веднага онлайн или като Android приложение.
+          </p>
+
+          <div class="helper-grid">
+            <div class="helper-box">
+              <h2>⚡ Отвори онлайн</h2>
+              <p>
+                Работи директно в браузъра, без инсталация.
+                Това е най-бързият вариант за достъп.
+              </p>
+              <div class="btn-row">
+                <a href="https://mailforumsite.github.io/stoptest" class="btn btn-primary">
+                  Отвори в браузър
+                </a>
+              </div>
+            </div>
+
+            <div class="helper-box">
+              <h2>📥 APK за Android</h2>
+              <p>
+                Ако искаш отделно приложение на телефона си,
+                изтегли и инсталирай APK версията.
+              </p>
+              <div class="btn-row">
+                <a href="APK_LINK_TUK" class="btn btn-secondary">
+                  Изтегли APK
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="helper-note">
+            <p>
+              За повечето хора най-удобният вариант е онлайн версията.  
+              За Android можеш да предложиш и APK.
+            </p>
           </div>
         </div>
-      </nav>
-    </div>
-  </div>
-</header>
+      </div>
+    </section>
+  </main>
 
-<div class="main container">
+  <footer></footer>
 
-  <h1 class="title">📱 Мобилен помощник</h1>
-  <div class="subtitle">
-    Бърз достъп до действия при проверка от КАТ
-  </div>
+  <script>
+    const toggle = document.getElementById('menuToggle');
+    const menu = document.getElementById('menu');
+    const links = menu.querySelectorAll('a');
 
-  <div class="box">
-    <h2>⚡ Отвори веднага</h2>
-    <p>Без инсталация – работи директно в браузъра</p>
-    <a href="https://mailforumsite.github.io/stoptest" class="btn btn-primary">
-      Отвори онлайн
-    </a>
-  </div>
+    toggle.addEventListener('click', () => {
+      menu.classList.toggle('open');
+      toggle.textContent = menu.classList.contains('open') ? '✕' : '☰';
+    });
 
-  <div class="box">
-    <h2>📥 APK за Android</h2>
-    <p>Инсталирай като приложение</p>
-    <a href="APK_LINK_TUK" class="btn btn-secondary">
-      Изтегли APK
-    </a>
-  </div>
-
-</div>
-
-<script>
-const toggle = document.getElementById('menuToggle');
-const menu = document.getElementById('menu');
-
-toggle.addEventListener('click', () => {
-  menu.classList.toggle('open');
-  toggle.textContent = menu.classList.contains('open') ? '✕' : '☰';
-});
-</script>
-
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth < 980) {
+          menu.classList.remove('open');
+          toggle.textContent = '☰';
+        }
+      });
+    });
+  </script>
 </body>
 </html>
