@@ -197,6 +197,7 @@
       text-align: center;
       border: 1px solid transparent;
       transition: 0.2s ease;
+      cursor: pointer;
     }
 
     .btn-primary {
@@ -297,6 +298,12 @@
       margin-bottom: 8px;
       color: var(--text);
       font-size: 18px;
+    }
+
+    .load-more-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: 24px;
     }
 
     footer {
@@ -403,61 +410,10 @@
 
     <section id="videos" class="section">
       <div class="container">
-        <div class="video-grid">
-          <article class="video-card">
-            <div class="video-frame">
-              <iframe src="https://www.youtube.com/embed/bbOfzfp6by0" title="Видео 1" allowfullscreen></iframe>
-            </div>
-          </article>
+        <div id="videoGrid" class="video-grid"></div>
 
-         <article class="video-card">
-            <div class="video-frame">
-              <iframe src="https://www.youtube.com/embed/43enzylDmiw" title="Видео 2" allowfullscreen></iframe>
-            </div>
-          </article>
-
-         <article class="video-card">
-            <div class="video-frame">
-              <iframe src="https://www.youtube.com/embed/ctpqyac4hRc" title="Видео 3" allowfullscreen></iframe>
-            </div>
-          </article>
-
-         <article class="video-card">
-            <div class="video-frame">
-              <iframe src="https://www.youtube.com/embed/3vKX83nctC8" title="Видео 4" allowfullscreen></iframe>
-            </div>
-          </article>          
-         
-          <article class="video-card">
-            <div class="video-frame">
-              <iframe src="https://www.youtube.com/embed/lwugNbpPxvw" title="Видео 5" allowfullscreen></iframe>
-            </div>
-          </article>    
-
-          <article class="video-card">
-            <div class="video-frame">
-              <iframe src="https://www.youtube.com/embed/qcLjjiUeQEc" title="Видео 6" allowfullscreen></iframe>
-            </div>
-          </article>
-          
-          <article class="video-card">
-            <div class="video-frame">
-              <iframe src="https://www.youtube.com/embed/UdRJNNySBJQ" title="Видео 7" allowfullscreen></iframe>
-            </div>
-          </article>
-          
-          <article class="video-card">
-            <div class="video-frame">
-              <iframe src="https://www.youtube.com/embed/0CfsI_v0qhA" title="Видео 8" allowfullscreen></iframe>
-            </div>
-          </article>
-          
-          <article class="video-card">
-            <div class="video-frame">
-              <iframe src="https://www.youtube.com/embed/_gezUQa2gr0" title="Видео 8" allowfullscreen></iframe>
-            </div>
-          </article>
-          
+        <div id="loadMoreWrap" class="load-more-wrap">
+          <button id="loadMoreBtn" class="btn btn-primary" type="button">ОЩЕ</button>
         </div>
       </div>
     </section>
@@ -487,6 +443,57 @@
         }
       });
     });
+
+    const videoIds = [
+      "bbOfzfp6by0",
+      "43enzylDmiw",
+      "ctpqyac4hRc",
+      "3vKX83nctC8",
+      "lwugNbpPxvw",
+      "qcLjjiUeQEc",
+      "UdRJNNySBJQ",
+      "0CfsI_v0qhA",
+      "_gezUQa2gr0"
+    ];
+
+    const videosPerPage = 6;
+    let visibleCount = 0;
+
+    const videoGrid = document.getElementById('videoGrid');
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    const loadMoreWrap = document.getElementById('loadMoreWrap');
+
+    function createVideoCard(id, index) {
+      const article = document.createElement('article');
+      article.className = 'video-card';
+      article.innerHTML = `
+        <div class="video-frame">
+          <iframe
+            src="https://www.youtube.com/embed/${id}"
+            title="Видео ${index + 1}"
+            allowfullscreen>
+          </iframe>
+        </div>
+      `;
+      return article;
+    }
+
+    function renderMoreVideos() {
+      const nextBatch = videoIds.slice(visibleCount, visibleCount + videosPerPage);
+
+      nextBatch.forEach((id, index) => {
+        videoGrid.appendChild(createVideoCard(id, visibleCount + index));
+      });
+
+      visibleCount += nextBatch.length;
+
+      if (visibleCount >= videoIds.length) {
+        loadMoreWrap.style.display = 'none';
+      }
+    }
+
+    loadMoreBtn.addEventListener('click', renderMoreVideos);
+    renderMoreVideos();
   </script>
 </body>
 </html>
