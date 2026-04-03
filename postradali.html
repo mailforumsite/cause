@@ -5,89 +5,200 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0b2d57" />
   <title>Пострадали | Силни сме заедно</title>
-
-  <!-- ЦЕЛИЯТ ТИ CSS СИ ОСТАВА -->
   <style>
-  /* (НЕ ПИПАМ НИЩО - същият ти CSS) */
-  :root {
-    --bg: #eef3f8;
-    --surface: #ffffff;
-    --nav: #0b2d57;
-    --nav-2: #123d74;
-    --text: #18253a;
-    --muted: #5f6f85;
-    --primary: #1f73d8;
-    --primary-hover: #165fba;
-    --border: #d8e1ec;
-    --shadow: 0 10px 30px rgba(8, 28, 54, 0.08);
-    --radius: 18px;
-    --max: 1180px;
-  }
+    :root {
+      --bg: #eef3f8;
+      --surface: #ffffff;
+      --nav: #0b2d57;
+      --nav-2: #123d74;
+      --text: #18253a;
+      --muted: #5f6f85;
+      --primary: #1f73d8;
+      --primary-hover: #165fba;
+      --border: #d8e1ec;
+      --shadow: 0 10px 30px rgba(8, 28, 54, 0.08);
+      --radius: 18px;
+      --max: 1180px;
+    }
 
-  * { box-sizing: border-box; }
-  body {
-    margin:0;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
-    background:var(--bg);
-    color:var(--text);
-  }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
-  .container {
-    width:min(100% - 32px,var(--max));
-    margin:0 auto;
-  }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
 
-  .topbar {
-    position:sticky;
-    top:0;
-    background:linear-gradient(180deg,var(--nav),var(--nav-2));
-    z-index:1000;
-  }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
 
-  .nav {
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    min-height:82px;
-  }
+    .container {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+    }
 
-  .logo-img { width:84px; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: linear-gradient(180deg, var(--nav) 0%, var(--nav-2) 100%);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+    }
 
-  .menu-links {
-    display:flex;
-    gap:15px;
-    color:#fff;
-    font-weight:700;
-  }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 82px;
+      padding: 10px 0;
+      position: relative;
+    }
 
-  .video-grid {
-    display:grid;
-    gap:20px;
-  }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      flex: 0 1 auto;
+    }
 
-  @media (min-width:700px){
-    .video-grid{grid-template-columns:repeat(2,1fr);}
-  }
+    .logo-img {
+      width: 84px;
+      height: 84px;
+      object-fit: contain;
+      flex: 0 0 auto;
+    }
 
-  @media (min-width:980px){
-    .video-grid{grid-template-columns:repeat(3,1fr);}
-  }
+    .menu-toggle {
+      border: 1px solid rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      font-size: 22px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+    }
 
-  .video-card {
-    background:#fff;
-    border-radius:20px;
-    overflow:hidden;
-  }
+    .menu {
+      display: none;
+      width: 100%;
+      padding: 0 0 18px;
+    }
 
-  .video-frame {
-    aspect-ratio:16/9;
-  }
+    .menu.open { display: block; }
 
-  .video-frame iframe {
-    width:100%;
-    height:100%;
-    border:0;
-  }
+    .menu-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 18px;
+      padding: 14px;
+    }
+
+    .menu-links a {
+      color: #fff;
+      font-weight: 700;
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 18px;
+    }
+
+    .menu-links a:hover,
+    .menu-links a.active {
+      background: rgba(255,255,255,0.12);
+    }
+
+    .socials {
+      display: flex;
+      gap: 10px;
+      margin-top: 6px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,0.14);
+    }
+
+    .socials a {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .hero {
+      padding: 34px 0 18px;
+    }
+
+    .hero-card {
+      background: linear-gradient(135deg, #ffffff 0%, #f4f8fc 100%);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 28px 20px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--primary);
+      background: rgba(31, 115, 216, 0.08);
+      padding: 8px 12px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(30px, 6vw, 56px);
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .video-card {
+      background: var(--surface);
+      border-radius: 24px;
+      overflow: hidden;
+    }
+
+    .video-frame {
+      aspect-ratio: 16 / 9;
+    }
+
+    .video-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    @media (min-width: 700px) {
+      .video-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 980px) {
+      .video-grid { grid-template-columns: repeat(3, 1fr); }
+    }
 
   </style>
 </head>
@@ -97,46 +208,51 @@
 <header class="topbar">
   <div class="container">
     <div class="nav">
-      <a href="index.html">
+      <a class="brand" href="index.html">
         <img src="images/logo.png" class="logo-img">
       </a>
 
-      <div class="menu-links">
-        <a href="index.html">Начало</a>
-        <a href="postradali.html">Пострадали</a>
-        <a href="http://cause.page.gd/phpBB3/index.php">Форум</a>
-        <a href="contact.html">Пиши ни</a>
-      </div>
+      <button id="menuToggle" class="menu-toggle">☰</button>
+
+      <nav id="menu" class="menu">
+        <div class="menu-links">
+          <a href="index.html">Начало</a>
+          <a href="postradali.html">Пострадали</a>
+          <a href="http://cause.page.gd/phpBB3/index.php">Форум</a>
+          <a href="contact.html">Пиши ни</a>
+        </div>
+      </nav>
     </div>
   </div>
 </header>
 
 <main>
 
-<section style="padding:30px 0;">
+<section class="hero">
   <div class="container">
-    <h1>Жертви на фалшиво позитивните полеви тестове</h1>
+    <div class="hero-card">
+      <div class="eyebrow">Реални случаи и видео истории</div>
+      <h1>Жертви на фалшиво позитивните полеви тестове</h1>
+    </div>
   </div>
 </section>
 
-<section>
+<section class="section">
   <div class="container">
 
     <div id="videosContainer" class="video-grid"></div>
 
-    <button id="loadBtn" onclick="loadMore()" style="
+    <button id="loadBtn" style="
       display:block;
       margin:20px auto;
-      padding:14px 20px;
-      font-size:18px;
-      border:none;
-      border-radius:10px;
+      padding:12px 20px;
       background:#1f73d8;
       color:#fff;
+      border:none;
+      border-radius:10px;
+      font-size:18px;
       cursor:pointer;
-    ">
-      Още
-    </button>
+    " onclick="loadMore()">Още</button>
 
   </div>
 </section>
@@ -158,7 +274,6 @@ const allVideos = [
   "UdRJNNySBJQ",
   "0CfsI_v0qhA",
   "_gezUQa2gr0"
-  // 👉 ТУК добавяш нови
 ];
 
 let current = 0;
@@ -175,11 +290,11 @@ function loadMore() {
     }
 
     container.innerHTML += `
-      <div class="video-card">
+      <article class="video-card">
         <div class="video-frame">
           <iframe src="https://www.youtube.com/embed/${allVideos[current]}" allowfullscreen></iframe>
         </div>
-      </div>
+      </article>
     `;
 
     current++;
@@ -187,6 +302,15 @@ function loadMore() {
 }
 
 loadMore();
+</script>
+
+<script>
+const toggle = document.getElementById('menuToggle');
+const menu = document.getElementById('menu');
+
+toggle.addEventListener('click', () => {
+  menu.classList.toggle('open');
+});
 </script>
 
 </body>
